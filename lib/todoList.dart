@@ -1,61 +1,34 @@
 import 'package:flutter/material.dart';
 
 
-class TodoList extends StatefulWidget {
+class ListBox extends StatefulWidget {
   @override
-  _TodoListState createState() => _TodoListState();
+  _ListBoxState createState() => _ListBoxState();
 }
 
-class _TodoListState extends State<TodoList> {
-   TextEditingController todoController = TextEditingController();
-  createModal(BuildContext context){
-    return showDialog(
-      context: context,
-      builder: (context){
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0)
-          ), 
-          title: Text("New todo"),
-          content: TextField(
-            controller: todoController,
-            autofocus: true,
-          ),
-          actions: <Widget>[
-             MaterialButton(
-              child: Text("Cancle" , style: TextStyle(color: Colors.blue,
-              ),), 
-              onPressed: () {
-             Navigator.of(context).pop();
-              },
-            
-            ),
-            MaterialButton(
-              child: Text("Add" , style: TextStyle(color: Colors.blue,
-              ),), 
-              onPressed: () {
-                 Navigator.of(context).pop(todoController.text.toString());
-              debugPrint(todoController.text.toString());
-              },
-            ),
-           
-          ],
-        );
-      }
-    );
-  }
+class _ListBoxState extends State<ListBox> {
+  Map <String, bool> todo = {
+    "JS": false,
+    "JAVA": false,
+    "PHP": false,
+    "Database": false
+  };
   @override
  Widget build(BuildContext context) =>
       Scaffold(
-        appBar: AppBar(
-          title: Text("Todo List"),
+        body: ListView(
+          children: todo.keys.map((String key){
+            return CheckboxListTile(
+              title: Text(key),
+              value: todo[key],
+              onChanged: (bool value){
+                setState(() {
+                 todo[key] = value; 
+                });
+              },
+            );
+          }).toList(),
         ),
-        floatingActionButton: FloatingActionButton(
-          //call function add modal
-          onPressed: () =>  createModal(context),
-    
-          child: Icon(Icons.add),
-        ),
+       
       );
 }
-

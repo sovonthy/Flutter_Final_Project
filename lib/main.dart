@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'todoList.dart';
+import 'alertDialog.dart';
 
 void main() => runApp(Home());
 class Home extends StatelessWidget {
@@ -7,7 +8,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TodoList(),
+      home: Alert(),
     );
   }
   
